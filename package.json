@@ -1,0 +1,63 @@
+{
+  "name": "creeper660-folgen-donloader",
+  "version": "1.0.0",
+  "description": "Ladet Anime Folgen oder sontiges automatisch herrunter",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "release": "electron-builder"
+  },
+  "build": {
+    "appId": "com.creeper660.app",
+    "productName": "creeper660 Folgen Donloader",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "creeper660c",
+        "repo": "creeper660-Folgen-Donloader"
+      }
+    ],
+    "win": {
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "nsis"
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "extraResources": [
+      "./ffmpeg.exe"
+    ],
+    "nsis": {
+      "installerIcon": "src/assets/gonIcon.ico",
+      "uninstallerIcon": "src/assets/gonIcon.ico",
+      "uninstallDisplayName": "creeper660 Folgen Donloader",
+      "license": "LICENSE",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [
+    "anime",
+    "episode",
+    "auto",
+    "downloader",
+    "hls"
+  ],
+  "author": "creeper660",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "electron": "^15.2.0",
+    "electron-builder": "^22.13.1"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "child_process": "^1.0.2",
+    "file-system": "^2.2.2",
+    "puppeteer": "^10.4.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.8.2",
+    "request": "^2.88.2"
+  }
+}

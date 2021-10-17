@@ -1,0 +1,488 @@
+*{
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   text-decoration: none;
+   font-family: sans-serif;
+   box-sizing: border-box;
+}
+
+html {
+   height: 100%;
+}
+
+body {
+   min-height: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+/* Title Bar */
+
+.ui-titlebar {
+   position: fixed;
+	display: flex;
+   top: 0px;
+   flex-direction: row;
+	width: 100%;
+	height: 42px;
+	background: #111;
+   -webkit-app-region: drag;
+} 
+.ui-titleicon {
+	flex-grow: 1;
+	width: 32px;
+	height: 32px;
+}
+.ui-titletext {
+   position: absolute;
+   left: 0;
+   padding-left: 15px;
+	height: 42px;
+	font: 14px/42px "Segoe UI", Arial, sans-serif;
+	color: #fff;
+}
+.ui-titlecontrols {
+   position: absolute;
+   right: 0;
+	height: 42px;
+   -webkit-app-region: no-drag;
+}
+.ui-btn {
+	margin: 0;
+	width: 48px;
+	height: 42px;
+	border: 0;
+	outline: 0;
+	background: transparent;
+}
+.ui-btn:hover {
+	background: rgba(255,255,255,.1);
+}
+.ui-btn.close:hover {
+	background: #e81123;
+}
+.ui-btn svg path, 
+.ui-btn svg rect, 
+.ui-btn svg polygon {
+	fill: #fff;
+}
+.ui-btn svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Content */
+
+main {
+   position: relative;
+   height: calc(100vh - 42px);
+   margin-top: 42px;
+   overflow: hidden auto;
+}
+
+.search-wrapper {
+   height: 100%;
+   display: none;
+   flex-direction: column;
+   padding: 40px;
+   box-sizing: border-box;
+}
+
+.search-wrapper.active {
+   display: flex;
+}
+
+.search-for-animename .search-for-animename-input {
+   border: 0;
+   outline: none;
+   color: #adb5bd;
+   background-color: #343a40;
+   width: 620px;
+   height: 45px;
+   padding: 5px 20px;
+   font-size: 15px;
+}
+
+.search-for-animename .search-for-animename-input::placeholder {
+   color: #adb5bd;
+ }
+ 
+.search-for-animename-results {
+   overflow: hidden auto;
+   flex-grow: 1;
+   margin-top: 20px;
+   width: 620px;
+   color: #fff;
+}
+
+.search-for-animename-results::-webkit-scrollbar {
+   width: 7px;
+}
+
+.search-for-animename-results::-webkit-scrollbar-thumb {
+   border-radius: 7px;
+   min-height: 40px;
+   background: #6c757d;
+}
+
+.search-for-animename-results ul li {
+   width: 100%;
+   cursor: pointer;
+   padding: 5px 20px;
+   border-radius: 5px;
+}
+
+.search-for-animename-results ul li:hover {
+   background-color: #495057;
+}
+
+/* episode list div */
+
+.staffeln-auswahl {
+   display: none;
+   flex-direction: row;
+   padding: 40px;
+   box-sizing: border-box;
+}
+
+.staffeln-auswahl.active {
+   display: flex;
+}
+
+.staffeln-auswahl ul {
+   display: flex;
+   flex-direction: row;
+   height: 40px;
+}
+
+.staffeln-auswahl li a, .staffeln-auswahl li strong{
+   display: block;
+   background-color: #fff;
+   color: #111;
+   padding: 10px 20px;
+}
+
+.staffeln-auswahl li a {
+   cursor: pointer;
+   transition: 0.5s;
+}
+
+.staffeln-auswahl ul li a:hover {
+   color: #fff;
+   background-color: #023e8a;
+}
+
+.staffeln-auswahl li a.selected {
+   color: #fff;
+   background-color: #023e8a;
+}
+
+.episoden-auswahl {
+   color: #fff;
+   display: none;
+   padding: 40px;
+   box-sizing: border-box;
+}
+
+.episoden-auswahl.active {
+   display: block;
+}
+
+.episoden-auswahl ul {
+   display: none;
+}
+
+.episoden-auswahl ul.active {
+   display: block;
+}
+
+/* .episoden-auswahl ul {
+   display: flex;
+} */
+
+.episoden-auswahl ul li {
+   padding: 10px;
+   display: grid;
+   grid-template-columns: 30px 100px 300px;
+   grid-auto-rows: 30px;
+   justify-items: center;
+   align-items: center;
+   cursor: pointer;
+}
+
+.episoden-auswahl ul li:hover {
+   background-color: #495057;
+}
+
+.episoden-auswahl ul li.selected {
+   background-color: #4d908e;
+}
+
+.episoden-auswahl ul li.selected:hover {
+   background-color: #43aa8b;
+}
+
+/* .episoden-auswahl ul li > span {
+
+} */
+
+/* checkbox */
+
+.checkbox {
+   display: block;
+   position: relative;
+   height: 25px;
+   width: 25px;
+   /* padding-left: 35px; */
+   /* margin-bottom: 12px; */
+   cursor: pointer;
+   user-select: none;
+}
+
+.checkbox input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+}
+
+.checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 25px;
+   width: 25px;
+   background-color: #eee;
+}
+
+.checkbox:hover input ~ .checkmark {
+   background-color: #ccc;
+}
+
+.checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+   left: 9px;
+   top: 5px;
+   width: 5px;
+   height: 10px;
+   border: solid white;
+   border-width: 0 3px 3px 0;
+   transform: rotate(45deg);
+}
+
+.checkbox input:checked ~ .checkmark {
+   background-color: #2196F3;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+   display: block;
+}
+
+/* no checkbox lol */
+
+.episoden-auswahl ul li strong {
+   justify-self: flex-start;
+}
+
+.go-to-format {
+   display: none;
+   position: absolute;
+   top: 40px;
+   right: 40px;
+   height: 40px;
+   padding: 8px;
+   outline: none;
+   border: 0;
+}
+
+.go-to-format:hover {
+   background-color: #ccc;
+}
+
+.go-to-format.active {
+   display: block;
+}
+
+.download-episodes {
+   display: none;
+   position: absolute;
+   top: 40px;
+   right: 40px;
+   height: 40px;
+   padding: 8px;
+   outline: none;
+   border: 0;
+}
+
+.download-episodes:hover {
+   background-color: #ccc;
+}
+
+.download-episodes.active {
+   display: block;
+}
+
+/* file format wäheln */
+
+.file-format-wrapper {
+   display: none;
+   padding: 40px;
+   box-sizing: border-box;
+   height: 600px;
+}
+
+.file-format-wrapper.active {
+   display: block;
+}
+
+.file-format-wrapper > ul {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   width: 100%;
+   justify-content: flex-start;
+   align-items: center;
+}
+
+.file-format-wrapper ul li {
+   position: relative;
+   cursor: pointer;
+   background-color: #fff;
+   width: 240px;
+   height: 40px;
+   line-height: 20px;
+   padding: 10px;
+}
+
+.file-format-wrapper ul .dropdown-choose {
+   pointer-events: none;
+   background-color: #6c757d;
+   margin-top: 400px;
+}
+
+.file-format-wrapper ul .dropdown-choose.active {
+   pointer-events: auto;
+   background-color: #fff;
+}
+
+.file-format-wrapper ul li ul {
+   display: none;
+   top: 40px;
+   position: absolute;
+   left: 0;
+}
+
+.file-format-wrapper ul li ul li {
+   display: flex;
+   flex-direction: row;
+}
+
+.file-format-wrapper ul li ul li.selected {
+   background-color: #4d908e;
+}
+
+.file-format-wrapper ul li ul li p {
+   margin-left: 10px;
+}
+
+.file-format-wrapper ul li:hover {
+   background-color: #ccc;
+}
+
+.file-format-wrapper ul li:hover > ul {
+	display: block;
+}
+
+.file-format-wrapper ul li ul.show {
+   display: block;
+}
+
+.file-format-wrapper ul li ul li .checkmark {
+   background-color: #495057;
+}
+
+.file-format-wrapper ul li ul li .checkbox:hover input ~ .checkmark {
+   background-color: #6c757d;
+}
+
+.file-format-wrapper .format {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   background-color: #fff;
+   margin-top: 25px;
+   width: 960px;
+   min-height: 40px;
+   line-height: 20px;
+   padding: 10px;
+   color: #111;
+   font-size: 17px;
+}
+
+.file-format-wrapper .format input {
+   text-align: center;
+   color: red;
+   border: 0;
+   outline: none;
+   /* color: #adb5bd;
+   background-color: #343a40; */
+   /* min-width: 110px; */
+   width: 80px;
+   height: 100%;
+   padding: 5px 0;
+   font-size: 17px;
+}
+
+.file-format-wrapper .format p {
+   cursor: move;
+}
+
+.file-format-wrapper .format .draggable.dragging {
+   opacity: .5;
+}
+
+.file-format-wrapper .format-example {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   background-color: #fff;
+   margin-top: 15px;
+   width: 960px;
+   min-height: 40px;
+   line-height: 20px;
+   padding: 10px;
+   color: #111;
+   font-size: 17px;
+}
+
+.continue-format {
+   margin-top: 25px;
+   height: 40px;
+   padding: 8px 15px;
+   outline: none;
+   border: 0;
+   cursor: pointer;
+}
+
+.download-episodes-div {
+   display: none;
+   flex-direction: column;
+   padding: 40px;
+   width: 620px;
+   color: #fff;
+}
+
+.download-episodes-div.active {
+   display: flex;
+}
+
+.download-episodes-div ul li {
+   width: 100%;
+   cursor: pointer;
+   padding: 5px 20px;
+   border-radius: 5px;
+}

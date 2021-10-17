@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css"/>
+    <title>Anime Episode Renamer</title>
+  </head>
+  <body>
+   <div class="ui-titlebar">
+      <!-- <div class="ui-titleicon">
+         <img src="assets/gon.png" alt="Icon">
+      </div> -->
+      <div class="ui-titletext">Anime Episode Renamer</div>
+      <div class="ui-titlecontrols">
+         <button class="ui-btn minimize">
+            <svg x="0px" y="0px" viewBox="0 0 10.2 1"><rect x="0" y="50%" width="10.2" height="1" /></svg>
+         </button>
+         <button class="ui-btn maximize">
+            <svg viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z" /></svg>
+         </button>
+         <button class="ui-btn close">
+            <svg viewBox="0 0 10 10"><polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1" /></svg>
+         </button>
+      </div>
+   </div>
+   <main>
+      <div class="search-wrapper active">
+         <div class="search-for-animename">
+            <input type="text" class="search-for-animename-input" placeholder="nach Anime suchen...">
+        </div>
+        <div class="search-for-animename-results">
+            <ul>
+               <li>Hunter x Hunter</li>
+               <li>Black Clover</li>
+               <li>Assassination Classroom</li>
+               <li>KonoSuba</li>
+            </ul>
+        </div>
+      </div>
+      <div class="staffeln-auswahl">
+         <ul>
+            <li><strong>Staffeln:</strong></li>
+            <li><a season="0" link="https://anicloud.io/anime/stream/hunter-x-hunter/filme">Filme</a></li>
+            <li><a season="1" link="https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1">1</a></li>
+            <li><a season="2" link="https://anicloud.io/anime/stream/hunter-x-hunter/staffel-2">2</a></li>
+            <li><a season="3" link="https://anicloud.io/anime/stream/hunter-x-hunter/staffel-3">3</a></li>
+         </ul>
+      </div>
+      <div class="episoden-auswahl">
+         <ul episodeSeason="1">
+            <li episodeLink='https://anicloud.io/stream/hunter-x-hunter/staffel-1/episode-1'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><span>Folge 1</span><strong>Departure x And x Friends</strong></li>
+            <li episodeLink='https://anicloud.io/stream/hunter-x-hunter/staffel-1/episode-2'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><span>Folge 1</span><strong>Departure x And x Friends</strong></li>
+            <li episodeLink='https://anicloud.io/stream/hunter-x-hunter/staffel-1/episode-3'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><span>Folge 1</span><strong>Departure x And x Friends</strong></li>
+            <li episodeLink='https://anicloud.io/stream/hunter-x-hunter/staffel-1/episode-4'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><span>Folge 1</span><strong>Departure x And x Friends</strong></li>
+            <li episodeLink='https://anicloud.io/stream/hunter-x-hunter/staffel-1/episode-5'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><span>Folge 1</span><strong>Departure x And x Friends</strong></li>
+         </ul>
+      </div>
+      <button class="go-to-format">Weiter</button>
+      <!-- <button class="download-episodes">Episoden herrunterladen</button> -->
+      <div class="file-format-wrapper">
+         <ul>
+            <li class="dropdown-format dropdown-included"><p>Beinhaltete Begriffe</p>
+               <ul>
+                  <li format='<input type="text" value="Episode-" class="draggable" oninput="formatexample();" draggable="true">'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Episode</p></li>
+                  <li format='<p variable="episodenZahl" class="draggable" draggable="true">Episoden Zahl</p>'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Episoden Zahl</p></li>
+                  <li format='<input type="text" value="-Staffel-" class="draggable" oninput="formatexample();" draggable="true">'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Staffel</p></li>
+                  <li format='<p variable="staffelZahl" class="draggable" draggable="true">Staffel Zahl</p>'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Staffel Zahl</p></li>
+                  <li format='<input type="text" value="-" class="draggable" oninput="formatexample();" draggable="true">'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Text dazwischen</p></li>
+                  <li format='<p variable="animeName" class="draggable" draggable="true">Anime Name</p>'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Anime Name</p></li>
+                  <li format='<input type="text" value="-" class="draggable" oninput="formatexample();" draggable="true">'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Text dazwischen</p></li>
+                  <li format='<p variable="episodenName" class="draggable" draggable="true">Episoden Name</p>'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Episoden Name</p></li>
+                  <li format='<input type="text" value="-" class="draggable" oninput="formatexample();" draggable="true">'><label class="checkbox"><input type="checkbox"><span class="checkmark"></span></label><p>Zusatz Text</p></li>
+               </ul>
+            </li>
+            <li class="dropdown-format dropdown-choose"><p>Format</p></li>
+            <div class="format">
+               Datei Format bestimmen
+               <!-- <input type="text" value="Episode"><p>Episoden Zahl</p><input type="text" value="Staffel"><p>Staffel Zahl</p><p>Staffel Zahl</p><p>Episoden Name</p> -->
+            </div>
+            <div class="format-example">Datei Namen Beispiel</div>
+            <button class="continue-format">Weiter</button>
+         </ul>
+      </div>
+      <div class="download-episodes-div">
+         <ul>
+            <li>Ep. 1 St. 1 Hunter x Hunter Departure x And x Friends</li>
+         </ul>
+      </div>
+      <button class="download-episodes">Episoden herrunterladen</button>
+   </main>
+   <script src="js/customTileBarFunction.js"></script>
+   <!-- <script src="js/animedata.json"></script> -->
+   <script src="js/animedata.js"></script>
+   <script src="js/renderer.js"></script>
+  </body>
+</html>
