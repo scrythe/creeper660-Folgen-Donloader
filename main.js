@@ -128,7 +128,6 @@ function getAnimeEpisodesSeasonList(url) {
 function getAnimeEpisodesList(url) {
     return new Promise(async resolve => {
         let animeStaffeln = await getAnimeStaffeln(url);
-        // console.log(animeStaffeln)
         var getAnimeEpisodesPromises = [];
         animeStaffeln.forEach(element => {
             getAnimeEpisodesPromises.push(getAnimeEpisodesSeasonList(element));
@@ -206,10 +205,6 @@ ipcMain.handle('download-anime-episodes', async (event, arg) => {
     return response;
 })
 
-// // download anime episodes function
-
-// const request = require('request');
-// const cheerio = require('cheerio');
 var fs = require('file-system');
 
 // videoLinkArray = ["https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-1", "https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-2", "https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-3"]
@@ -246,7 +241,6 @@ function checkifvoelink(url, page) {
 
 function getstreamingwebsite(videoLinkArray) {
     return new Promise (async resolve => {
-        // "app.asar.unpacked\node_modules\puppeteer"
         const browser = await puppeteer.launch({ executablePath: `${__dirname}\\..\\app.asar.unpacked\\node_modules\\puppeteer\\.local-chromium\\win64-901912\\chrome-win\\chrome.exe`, headless: false });
         const page = await browser.newPage();
         var voelinks = [];
