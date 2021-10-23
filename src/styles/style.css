@@ -72,6 +72,16 @@ body {
   height: 10px;
 }
 
+.goback {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   margin-bottom: 25px;
+   margin-right: 25px;
+   background-color: #fff;
+   color: #111;
+}
+
 /* Content */
 
 main {

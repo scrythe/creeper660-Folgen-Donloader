@@ -26,7 +26,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('src/index.html')
+  mainWindow.loadFile('src/search.html')
   mainWindow.setBackgroundColor('#212529')
 
   //// Minimize App
@@ -265,8 +265,7 @@ function getstreamingurl(streamingwebsite) {
                 var searchconstsourcesRegExp = new RegExp("const sources(.*?)};", "s");
                 var constsources = html.match(searchconstsourcesRegExp)[0];
                 var searchHlsSrcRegExp = new RegExp("https(.*?)master.m3u8", "s");
-                var hlssrc = constsources.match(searchHlsSrcRegExp)[0];
-                resolve(hlssrc);
+                var hlssrc = constsources.match(searchHlsSrcRegExp)[0];                resolve(hlssrc);
             }
         })
     })

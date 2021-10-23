@@ -3,6 +3,7 @@
 const minimzeBtn = document.querySelector('.minimize');
 const maxResBtn = document.querySelector('.maximize');
 const closeBtn = document.querySelector('.close');
+const goBackBtn = document.querySelector('.goback');
 
 //// Minimize App
 
@@ -20,4 +21,8 @@ maxResBtn.addEventListener('click', () => {
 
 closeBtn.addEventListener('click', () => {
     window.api.send('closeApp toMain');
+})
+
+goBackBtn.addEventListener('click', () => {
+    history.back();
 })
