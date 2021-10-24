@@ -298,19 +298,18 @@ main {
    justify-self: flex-start;
 }
 
-.go-to-format {
-   display: none;
-   position: absolute;
-   top: 40px;
-   right: 40px;
-   height: 40px;
-   padding: 8px;
-   outline: none;
-   border: 0;
+.ganze-staffe-auswählen {
+   width: max-content;
+   margin-left: 35px;
 }
 
-.go-to-format:hover {
-   background-color: #ccc;
+.go-to-format {
+   display: none;
+   padding: 10px 8px;
+   outline: none;
+   border: 0;
+   height: 38.4px;
+   margin-left: 35px;
 }
 
 .go-to-format.active {

@@ -1,5 +1,12 @@
 document.querySelector('.file-format-wrapper').classList.add("active");
 
+setTimeout(() => {
+    document.querySelectorAll('.dropdown-included ul li').forEach(element => {
+        element.classList.remove('selected');
+        element.querySelector('.checkbox input').checked = false;
+    })
+}, 200);
+
 //update format if it got changed
 
 function updateFormat() {
@@ -113,13 +120,18 @@ window.onclick = function(event) {
 }
 
 document.querySelector('.dropdown-included ul').addEventListener('click', (evt) => {
-    var checkbox = evt.target;
+    let clickedItem = evt.target;
+    if (clickedItem.classList.contains('checkmark')) return;
+    let clickedListItem = clickedItem.closest('li');
+    let checkbox = clickedListItem.querySelector('.checkbox input');
     if (checkbox.tagName != 'INPUT') return;
-    var includeFormatLi = checkbox.parentElement.parentElement;
-    if (includeFormatLi.classList.contains('selected') && !checkbox.checked) {
+    let includeFormatLi = checkbox.parentElement.parentElement;
+    if (includeFormatLi.classList.contains('selected')) {
         includeFormatLi.classList.remove('selected');
+        checkbox.checked = false;
     } else {
         includeFormatLi.classList.add('selected');
+        checkbox.checked = true;
     }
     if (checkbox.checked) {
         document.querySelector('.dropdown-choose').classList.add("active")

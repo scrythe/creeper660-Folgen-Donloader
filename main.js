@@ -191,7 +191,7 @@ function allAnimeEpisodeAndSeasonData(url, animeName) {
             }
         });
         var seasonsHTML = seasonsHTML.join('');
-        var seasonsHTML = `<ul><li><strong>Staffeln:</strong></li>${seasonsHTML}</ul>`;
+        var seasonsHTML = `<ul><li><strong>Staffeln:</strong></li>${seasonsHTML}<li><a class="ganze-staffe-auswählen">ganze Staffel auswählen</a></li><li><a class="go-to-format">Weiter</a><li></ul>`;
         var animeDataHTML = {episodesHTML: episodesHTML, seasonsHTML: seasonsHTML};
         resolve(animeDataHTML);
     })

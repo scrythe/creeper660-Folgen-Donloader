@@ -5,13 +5,14 @@ async function loadAnimeData() {
     let animeUrl = animeData['animeUrl'];
     let animeName = animeData['animeName'];
     const response = await window.api.doAction("get-anime-episode-data", [animeUrl, animeName]);
-    console.log(response.episodesHTML);
     document.querySelector('.staffeln-auswahl').innerHTML = response.seasonsHTML;
     document.querySelector('.episoden-auswahl').innerHTML = response.episodesHTML;
     document.querySelector('.staffeln-auswahl ul').addEventListener('click', seasonClick);
     document.querySelector('.staffeln-auswahl').classList.add("active");
     document.querySelector('.episoden-auswahl').classList.add("active");
     document.querySelector('.episoden-auswahl').addEventListener('click', episodeClick);
+    document.querySelector('.ganze-staffe-auswählen').addEventListener('click', ganzeStaffeAuswaehlen);
+    document.querySelector('.go-to-format').addEventListener('click', goToFormat);
     document.querySelector('.go-to-format').classList.add("active");
 }
 
@@ -53,11 +54,28 @@ function episodeClick(evt) {
     }
 }
 
-document.querySelector('.go-to-format').addEventListener('click', () => {
+function goToFormat() {
     let selectedEpisodes = Object.values(document.querySelectorAll('.episoden-auswahl ul li.selected'));
     let allselectedEpisodes = selectedEpisodes.map(episode => {
         return {episodenEpisodeLink: episode.getAttribute('episodenepisodelink'), episodenName: episode.getAttribute('episodenname'), animeName: episode.getAttribute('animename'), staffelZahl: episode.getAttribute('staffelzahl'), episodenZahl: episode.getAttribute('episodenzahl')};
     });
     sessionStorage.setItem('animeEpisodesData', JSON.stringify(allselectedEpisodes));
     window.location.href = "format.html";
-})
+}
+
+function ganzeStaffeAuswaehlen() {
+    let selectedUl = document.querySelector('.episoden-auswahl ul.active');
+    let selectedLis = selectedUl.querySelectorAll('li.selected');
+    let episodesLis = selectedUl.querySelectorAll('li');
+    if (selectedLis.length != episodesLis.length) {
+        episodesLis.forEach(element => {
+            element.classList.add('selected');
+            element.querySelector('.checkbox input').checked = true;
+        })
+    } else {
+        episodesLis.forEach(element => {
+            element.classList.remove('selected');
+            element.querySelector('.checkbox input').checked = false;
+        })
+    }
+}
