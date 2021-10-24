@@ -215,7 +215,7 @@ function getredirectlink(url) {
         request(url, (error, response, html) => {
             if(!error && response.statusCode == 200) {
                 const $$ = cheerio.load(html);
-                const watchEpisodehref = $$('.watchEpisode').eq(3).attr('href');
+                const watchEpisodehref = $$('[title="Hoster VOE"]').closest('[data-lang-key="3"]').find('.watchEpisode').attr('href');
                 const watchEpisodelink = `https://anicloud.io${watchEpisodehref}`;
                 resolve(watchEpisodelink);
             }
@@ -312,7 +312,6 @@ function getAllIndexmu38Links(videoLinkArray) {
 function downloadfiles(videoLinkArray, filepath) {
     return new Promise (async resolve => {
         const indexmu38links = await getAllIndexmu38Links(videoLinkArray);
-        // __dirname + '/../extraResources/
         const ffmpeg = `"${__dirname}\\..\\ffmpeg"`;
         var downloadfilecommands = indexmu38links.map(indexmu38link => {
             return `${ffmpeg} -i "${indexmu38link[0]}" -c copy -bsf:a aac_adtstoasc "${indexmu38link[1].replace(/[\/\\:*?"<>]/g, '')}.mp4"`;
