@@ -12,7 +12,7 @@ allAnimesUl.addEventListener('click', clickedAnime);
 function showAnimeList(list) {
     let listData;
     if (!list.length) {
-        failedSearchValue = inputBsearchInputBoxox.value;
+        failedSearchValue = searchInputBox.value;
         listData = `<li>${failedSearchValue}</li>`
     } else {
         listData = list.join('');

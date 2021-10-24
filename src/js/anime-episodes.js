@@ -38,13 +38,18 @@ function seasonClick(evt) {
 // if clicked on episode, make it selected
 
 function episodeClick(evt) {
-    let checkbox = evt.target;
+    let clickedItem = evt.target;
+    if (clickedItem.classList.contains('checkmark')) return;
+    let clickedListItem = clickedItem.closest('li');
+    let checkbox = clickedListItem.querySelector('.checkbox input');
     if (checkbox.tagName != 'INPUT') return;
     let episodeListItem = checkbox.parentElement.parentElement;
-    if (episodeListItem.classList.contains("selected") && !checkbox.checked) {
+    if (episodeListItem.classList.contains("selected")) {
         episodeListItem.classList.remove("selected");
+        checkbox.checked = false;
     } else {
         episodeListItem.classList.add("selected");
+        checkbox.checked = true;
     }
 }
 
