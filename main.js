@@ -6,6 +6,7 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin());
 const child_process = require('child_process');
+const ffmpeg = require("fluent-ffmpeg");
 
 function createWindow () {
   // Create the browser window.
@@ -200,12 +201,9 @@ function allAnimeEpisodeAndSeasonData(url, animeName) {
 ipcMain.handle('download-anime-episodes', async (event, arg) => {
     const urls = arg;
     var filepath = dialog.showOpenDialogSync({properties: ['openDirectory']});
-    const response = await executedownlaodfilescommand(urls, filepath);
-    fs.unlinkSync(`${filepath}\\hls-download.bat`);
+    const response = await downloadfiles(urls, filepath, event);
     return response;
 })
-
-var fs = require('file-system');
 
 // videoLinkArray = ["https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-1", "https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-2", "https://anicloud.io/anime/stream/hunter-x-hunter/staffel-1/episode-3"]
 
@@ -241,7 +239,8 @@ function checkifvoelink(url, page) {
 
 function getstreamingwebsite(videoLinkArray) {
     return new Promise (async resolve => {
-        const browser = await puppeteer.launch({ executablePath: `${__dirname}\\..\\app.asar.unpacked\\node_modules\\puppeteer\\.local-chromium\\win64-901912\\chrome-win\\chrome.exe`, headless: false });
+        // executablePath: `${__dirname}\\..\\app.asar.unpacked\\node_modules\\puppeteer\\.local-chromium\\win64-901912\\chrome-win\\chrome.exe`, 
+        const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
         var voelinks = [];
         for (const anicloudUrl of videoLinkArray) {
@@ -309,25 +308,37 @@ function getAllIndexmu38Links(videoLinkArray) {
     })
 }
 
-function downloadfiles(videoLinkArray, filepath) {
+function downloadfiles(videoLinkArray, filepath, event) {
     return new Promise (async resolve => {
         const indexmu38links = await getAllIndexmu38Links(videoLinkArray);
-        const ffmpeg = `"${__dirname}\\..\\ffmpeg"`;
-        var downloadfilecommands = indexmu38links.map(indexmu38link => {
-            return `${ffmpeg} -i "${indexmu38link[0]}" -c copy -bsf:a aac_adtstoasc "${indexmu38link[1].replace(/[\/\\:*?"<>]/g, '')}.mp4"`;
-        });
-        var downloadfilecommands = downloadfilecommands.join('\n');
-        const cmdCommand = `cd "${filepath}"\n${downloadfilecommands}\nexit`
-        fs.writeFileSync(`${filepath}\\hls-download.bat`, cmdCommand);
-        resolve("Rewriting Powershell Code was succesfull");
+        for (const video of indexmu38links) {
+            await downloadVideosSync(video, filepath, event);
+        }
+        resolve("Video downloading ist gestartet");
     })
 }
 
-function executedownlaodfilescommand(videoLinkArray, filepath) {
-    return new Promise (async resolve => {
-        const response = await downloadfiles(videoLinkArray, filepath);
-        console.log(response)
-        child_process.execSync(`start cmd.exe /K "${filepath}\\hls-download.bat"`);
-        resolve('Episoden fertig gedownloadet');
+function downloadVideosSync(video, filepath, event) {
+    return new Promise(resolve => {
+        let ffmpePath = `${__dirname}\\ffmpeg`;
+        ffmpeg(video[0])
+        .on('progress', progress => {
+            console.log('Processing: '+ progress.percent +'% done');
+            let currentEpisode = video[1];
+            let currentEpisodeProgress = `${Math.round(progress.percent * 100) / 100}%`;
+            event.sender.send("update-episode-progress fromMain", [currentEpisode, currentEpisodeProgress]);
+        })
+        .on('end', () => {
+            console.log("done");
+            let currentEpisode = video[1];
+            let currentEpisodeProgress = 'completed';
+            event.sender.send("update-episode-progress fromMain", [currentEpisode, currentEpisodeProgress]);
+            resolve();
+        })
+        .outputOptions("-c copy")
+        .outputOptions("-bsf:a aac_adtstoasc")
+        .output(`${filepath}\\${video[1]}.mp4`)
+        .setFfmpegPath(ffmpePath)
+        .run()
     })
 }

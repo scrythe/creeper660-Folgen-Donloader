@@ -83,22 +83,23 @@ function formatexample() {
 function episodeData() {
     let formats = Object.values(document.querySelectorAll('.format .draggable'));
     let allselectedEpisodes = JSON.parse(sessionStorage.getItem('animeEpisodesData'));
-    var eachEpisode = allselectedEpisodes.map(episode => {
-        var episodenEpisodeLink = episode.episodenEpisodeLink;
-        var episodenName = episode.episodenName;
-        var animeName = episode.animeName;
-        var staffelZahl = episode.staffelZahl;
-        var episodenZahl = episode.episodenZahl;
-        var allFormats = formats.reduce((wholeFormats, format) => {
+    let eachEpisode = allselectedEpisodes.map(episode => {
+        let episodenEpisodeLink = episode.episodenEpisodeLink;
+        let episodenName = episode.episodenName;
+        let animeName = episode.animeName;
+        let staffelZahl = episode.staffelZahl;
+        let episodenZahl = episode.episodenZahl;
+        let allFormats = formats.reduce((wholeFormats, format) => {
             if (format.tagName == 'INPUT') {
                 return `${wholeFormats}${format.value}`;
             } else {
                 return `${wholeFormats}${eval(format.getAttribute('variable'))}`;
             }
         }, ``);
-        return `<li episodenepisodelink='${episodenEpisodeLink}'>${allFormats}</li>`;
+        allFormats = allFormats.replace(/[\/\\:*?"<>]/g, '');
+        return `<li currentEpisode='${allFormats}' episodenepisodelink='${episodenEpisodeLink}'><strong>${allFormats}</strong><span></span></li>`;
     });
-    var eachEpisode = eachEpisode.join('');
+    eachEpisode = eachEpisode.join('');
     return `<ul>${eachEpisode}</ul>`;
 }
 

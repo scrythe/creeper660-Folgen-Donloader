@@ -85,6 +85,8 @@ body {
 /* Content */
 
 main {
+   display: flex;
+   flex-direction: column;
    position: relative;
    height: calc(100vh - 42px);
    margin-top: 42px;
@@ -120,7 +122,7 @@ main {
  
 .search-for-animename-results {
    overflow: hidden auto;
-   flex-grow: 1;
+   /* flex-grow: 1; */
    margin-top: 20px;
    width: 620px;
    color: #fff;
@@ -191,12 +193,23 @@ main {
 .episoden-auswahl {
    color: #fff;
    display: none;
-   padding: 40px;
+   margin: 40px 40px 0;
    box-sizing: border-box;
+   overflow: hidden auto;
 }
 
 .episoden-auswahl.active {
    display: block;
+}
+
+.episoden-auswahl::-webkit-scrollbar {
+   width: 7px;
+}
+
+.episoden-auswahl::-webkit-scrollbar-thumb {
+   border-radius: 7px;
+   min-height: 40px;
+   background: #6c757d;
 }
 
 .episoden-auswahl ul {
@@ -480,18 +493,34 @@ main {
 .download-episodes-div {
    display: none;
    flex-direction: column;
-   padding: 40px;
-   width: 620px;
+   margin: 40px 40px 0;
+   width: 660px;
    color: #fff;
+   overflow: hidden auto;
 }
 
 .download-episodes-div.active {
    display: flex;
 }
 
+.download-episodes-div::-webkit-scrollbar {
+   width: 7px;
+}
+
+.download-episodes-div::-webkit-scrollbar-thumb {
+   border-radius: 7px;
+   min-height: 40px;
+   background: #6c757d;
+}
+
 .download-episodes-div ul li {
    width: 100%;
-   cursor: pointer;
-   padding: 5px 20px;
-   border-radius: 5px;
+   /* padding: 5px 20px; */
+   padding: 10px;
+   display: grid;
+   grid-auto-rows: 30px;
+   align-items: center;
+   background-color: #343a40;
+   color: #dee2e6;
+   grid-template-columns: 540px 100px;
 }
